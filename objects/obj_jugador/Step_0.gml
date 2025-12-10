@@ -1,57 +1,216 @@
-/// @description Movimiento, Colisiones y Sprites
+/// @description Movimiento, Colisiones, Sprint e Interacción
 
-// --- 1. CONTROLES (Flechas o WASD) ---
-var _derecha = keyboard_check(vk_right) or keyboard_check(ord("D"));
-var _izquierda = keyboard_check(vk_left) or keyboard_check(ord("A"));
-var _abajo = keyboard_check(vk_down) or keyboard_check(ord("S"));
-var _arriba = keyboard_check(vk_up) or keyboard_check(ord("W"));
+// Si el jugador está muerto, no hace nada
+if (player_state != PLAYER_STATE_DEAD) {
 
-// --- 2. CALCULAR VELOCIDAD ---
-// (1 - 0) = 1 (derecha), (0 - 1) = -1 (izquierda), etc.
-var _hspd = (_derecha - _izquierda) * velocidad;
-var _vspd = (_abajo - _arriba) * velocidad;
+    // =========================
+    // 1. CONTROLES DE DIRECCIÓN
+    // =========================
+    var _derecha  = keyboard_check(vk_right) || keyboard_check(ord("D"));
+    var _izquierda= keyboard_check(vk_left)  || keyboard_check(ord("A"));
+    var _abajo    = keyboard_check(vk_down)  || keyboard_check(ord("S"));
+    var _arriba   = keyboard_check(vk_up)    || keyboard_check(ord("W"));
 
-// --- 3. COLISIÓN HORIZONTAL (Con obj_pared) ---
-// Si vamos a chocar horizontalmente...
-if (place_meeting(x + _hspd, y, obj_pared)) {
-    // ...nos movemos píxel a píxel hasta tocar la pared
-    while (!place_meeting(x + sign(_hspd), y, obj_pared)) {
-        x = x + sign(_hspd);
-    }
-    _hspd = 0; // Detener velocidad
-}
-x = x + _hspd; // Aplicar movimiento
+    // Vector de movimiento (sin normalizar)
+    var _mx = _derecha - _izquierda;
+    var _my = _abajo   - _arriba;
 
-// --- 4. COLISIÓN VERTICAL (Con obj_pared) ---
-// Si vamos a chocar verticalmente...
-if (place_meeting(x, y + _vspd, obj_pared)) {
-    while (!place_meeting(x, y + sign(_vspd), obj_pared)) {
-        y = y + sign(_vspd);
+    // Si está escondido o interactuando, no se mueve
+    if (player_state == PLAYER_STATE_HIDDEN || player_state == PLAYER_STATE_INTERACTING) {
+        _mx = 0;
+        _my = 0;
     }
-    _vspd = 0; // Detener velocidad
-}
-y = y + _vspd; // Aplicar movimiento
 
-// --- 5. CAMBIO DE SPRITES (Tus nombres exactos) ---
+    // =========================
+    // 2. SPRINT / CARRERA (SHIFT)
+    // =========================
 
-// Si se está moviendo (velocidad distinta de 0)
-if (_hspd != 0 || _vspd != 0) {
-    image_speed = 1; // Activar animación de pasos
-    
-    if (_vspd > 0) { // Moviéndose ABAJO
-        sprite_index = sp_shadow_caminar_frente;
+    // Por defecto asumimos que NO corre
+    corriendo = false;
+
+    // Solo puede correr si:
+    // - está pulsando SHIFT
+    // - tiene energía de sprint
+    // - NO está en cooldown
+    // - está en estado NORMAL o CHASED (no escondido / no interactuando)
+    var _shift = keyboard_check(vk_shift);
+
+    if (_shift
+        && sprint_actual > 0
+        && sprint_cooldown <= 0
+        && (player_state == PLAYER_STATE_NORMAL || player_state == PLAYER_STATE_CHASED)) {
+        corriendo = true;
     }
-    else if (_vspd < 0) { // Moviéndose ARRIBA
-        sprite_index = sp_shadow_caminar_atras;
+
+    // Ajustar velocidad_actual según esté corriendo o no
+    if (corriendo) {
+        velocidad_actual = velocidad_run;
+        // gastar energía
+        sprint_actual -= sprint_gasto;
+        if (sprint_actual <= 0) {
+            sprint_actual = 0;
+            corriendo = false;
+            // activamos cooldown
+            sprint_cooldown = sprint_cooldown_time;
+            velocidad_actual = velocidad_walk;
+        }
+    } else {
+        velocidad_actual = velocidad_walk;
+
+        // Si no está corriendo, y no hay cooldown, se recupera energía
+        if (sprint_cooldown <= 0) {
+            sprint_actual += sprint_recuperacion;
+            if (sprint_actual > sprint_max) sprint_actual = sprint_max;
+        }
     }
-    else if (_hspd > 0) { // Moviéndose DERECHA
-        sprite_index = sp_shadow_caminar_derecha;
+
+    // Actualizar cooldown si está activo
+    if (sprint_cooldown > 0) {
+        sprint_cooldown -= 1;
     }
-    else if (_hspd < 0) { // Moviéndose IZQUIERDA
-        sprite_index = sp_shadow_caminar_izquierda;
+
+    // =========================
+    // 3. CALCULAR VELOCIDADES H/V
+    // =========================
+
+    // Normalizar movimiento (para no ir más rápido en diagonal)
+    var _len = point_distance(0, 0, _mx, _my);
+    var _dir_x = 0;
+    var _dir_y = 0;
+
+    if (_len > 0) {
+        _dir_x = _mx / _len;
+        _dir_y = _my / _len;
     }
-} else {
-    // Si no se mueve, detener la animación (se queda en el frame 0)
-    image_speed = 0;
-    image_index = 0; 
+
+    var _hspd = _dir_x * velocidad_actual;
+    var _vspd = _dir_y * velocidad_actual;
+
+    // =========================
+    // 4. COLISIONES CON obj_pared
+    // =========================
+
+    // --- HORIZONTAL ---
+    if (place_meeting(x + _hspd, y, obj_pared)) {
+        while (!place_meeting(x + sign(_hspd), y, obj_pared)) {
+            x += sign(_hspd);
+        }
+        _hspd = 0;
+    }
+    x += _hspd;
+
+    // --- VERTICAL ---
+    if (place_meeting(x, y + _vspd, obj_pared)) {
+        while (!place_meeting(x, y + sign(_vspd), obj_pared)) {
+            y += sign(_vspd);
+        }
+        _vspd = 0;
+    }
+    y += _vspd;
+
+    // =========================
+    // 5. SPRITES DE MOVIMIENTO
+    // =========================
+    if (_hspd != 0 || _vspd != 0) {
+        image_speed = 1; // animación de pasos
+
+        if (_vspd > 0) {          // ABAJO
+            sprite_index = sp_shadow_caminar_frente;
+        } else if (_vspd < 0) {   // ARRIBA
+            sprite_index = sp_shadow_caminar_atras;
+        } else if (_hspd > 0) {   // DERECHA
+            sprite_index = sp_shadow_caminar_derecha;
+        } else if (_hspd < 0) {   // IZQUIERDA
+            sprite_index = sp_shadow_caminar_izquierda;
+        }
+    } else {
+        image_speed = 0;
+        image_index = 0;
+    }
+
+    // =========================
+    // 6. DETECCIÓN DE INTERACCIÓN (E)
+    // =========================
+
+    // Por ahora, buscamos cualquier objeto que herede de par_interactable
+    puede_interactuar = false;
+    interact_target   = noone;
+
+    // Busca el más cercano al jugador
+    var _inst = instance_nearest(x, y, par_interactable);
+
+    if (_inst != noone) {
+        // Chequear si está dentro del rango
+        if (point_distance(x, y, _inst.x, _inst.y) <= interact_range) {
+            puede_interactuar = true;
+            interact_target = _inst;
+        }
+    }
+
+    // =========================
+    // 7. USO DE TECLA E (switch/case)
+    // =========================
+
+    if (puede_interactuar && keyboard_check_pressed(ord("E"))) {
+
+        // switch sobre el tipo de objeto con el que vamos a interactuar
+        switch (interact_target.object_index) {
+
+            case obj_puerta:
+                // Abrir / cerrar puerta
+                with (interact_target) {
+                    // Ejemplo: variable "abierta" en el objeto puerta
+                    abierta = !abierta;
+                }
+            break;
+
+            case obj_locker:
+                // Entrar / salir de escondite
+                if (!is_hidden) {
+                    // ENTRAR
+                    player_state = PLAYER_STATE_HIDDEN;
+                    is_hidden    = true;
+                    hiding_spot  = interact_target;
+
+                    // Opcional: centrar al jugador en el locker
+                    x = interact_target.x;
+                    y = interact_target.y;
+
+                    // Opcional: cambiar sprite
+                    // sprite_index = sp_shadow_escondido;
+
+                } else {
+                    // SALIR (solo si es el mismo locker donde está)
+                    if (hiding_spot == interact_target) {
+                        player_state = PLAYER_STATE_NORMAL;
+                        is_hidden    = false;
+                        hiding_spot  = noone;
+
+                        // Opcional: empujón hacia afuera
+                        // y += 8;
+
+                        // Opcional: ruido extra al salir
+                        // noise_level += 10;
+                    }
+                }
+            break;
+
+            case obj_item:
+                // Recoger item
+                with (interact_target) {
+                    instance_destroy();
+                }
+                // Aquí luego sumas a inventario, llaves, etc.
+            break;
+
+            case obj_generador:
+                // Por AHORA: NO hacemos nada con el generador.
+                // Luego lo usamos para activar el sistema de reparación.
+            break;
+
+            default:
+                // Cualquier otro interactuable que aún no hayamos manejado
+            break;
+        }
+    }
 }
