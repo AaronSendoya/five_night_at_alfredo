@@ -1,0 +1,1 @@
+mostrar_mensaje = false; // Para saber si dibujamos la letra "E"
