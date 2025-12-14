@@ -1,11 +1,8 @@
 {
   "resourceType": "GMObject",
   "resourceVersion": "1.0",
-  "name": "obj_ventilation",
-  "spriteId": {
-    "name": "sp_ventilation",
-    "path": "sprites/sp_ventilation/sp_ventilation.yy",
-  },
+  "name": "obj_vent_ui",
+  "spriteId": null,
   "solid": false,
   "visible": true,
   "managed": true,
@@ -26,14 +23,12 @@
   "physicsShapePoints": [],
   "eventList": [
     {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","isDnD":false,"eventNum":0,"eventType":0,"collisionObjectId":null,},
-    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","isDnD":false,"eventNum":0,"eventType":8,"collisionObjectId":null,},
-    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","isDnD":false,"eventNum":0,"eventType":3,"collisionObjectId":null,},
     {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","isDnD":false,"eventNum":64,"eventType":8,"collisionObjectId":null,},
   ],
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Utilities",
-    "path": "folders/Objetos/Utilities.yy",
+    "name": "Controllers",
+    "path": "folders/Objetos/Controllers.yy",
   },
 }

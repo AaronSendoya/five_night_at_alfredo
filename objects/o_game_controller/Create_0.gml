@@ -17,6 +17,9 @@ global.animatronics_active = false;
 global.active_chases        = 0;
 global.max_chases           = 1;
 
+// Variable de invisibilidad para las ventilaciones
+global.player_hidden = false;
+
 // =========================================================
 // 2. CONFIGURACIÓN VISUAL
 // =========================================================
