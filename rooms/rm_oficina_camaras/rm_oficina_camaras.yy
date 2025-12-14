@@ -1030,6 +1030,7 @@
         {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_3D0770C6","properties":[],"isDnd":false,"objectId":{"name":"obj_pared_2","path":"objects/obj_pared_2/obj_pared_2.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":6.3125,"scaleY":3.25,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":764.0,"y":4572.0,},
         {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_1EAC689A","properties":[],"isDnd":false,"objectId":{"name":"obj_pared_2","path":"objects/obj_pared_2/obj_pared_2.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":6.3125,"scaleY":3.25,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":411.0,"y":4282.0,},
         {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_1FD6E5B","properties":[],"isDnd":false,"objectId":{"name":"obj_pared_2","path":"objects/obj_pared_2/obj_pared_2.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":6.3125,"scaleY":3.25,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":135.0,"y":4556.0,},
+        {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_381DF3CD","properties":[],"isDnd":false,"objectId":{"name":"obj_director_ia","path":"objects/obj_director_ia/obj_director_ia.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":-64.0,"y":-160.0,},
       ],"visible":true,"depth":400,"userdefinedDepth":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritVisibility":true,"inheritSubLayers":true,"gridX":32,"gridY":32,"layers":[],"hierarchyFrozen":false,"effectEnabled":true,"effectType":null,"properties":[],},
     {"resourceType":"GMRInstanceLayer","resourceVersion":"1.0","name":"Instancia_Almacen","instances":[
         {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_B08AD7E","properties":[],"isDnd":false,"objectId":{"name":"obj_pared","path":"objects/obj_pared/obj_pared.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":4191.0,"y":3797.0,},
@@ -2592,6 +2593,7 @@
     {"name":"inst_3D0770C6","path":"rooms/rm_oficina_camaras/rm_oficina_camaras.yy",},
     {"name":"inst_1EAC689A","path":"rooms/rm_oficina_camaras/rm_oficina_camaras.yy",},
     {"name":"inst_1FD6E5B","path":"rooms/rm_oficina_camaras/rm_oficina_camaras.yy",},
+    {"name":"inst_381DF3CD","path":"rooms/rm_oficina_camaras/rm_oficina_camaras.yy",},
   ],
   "inheritCreationOrder": false,
   "sequenceId": null,

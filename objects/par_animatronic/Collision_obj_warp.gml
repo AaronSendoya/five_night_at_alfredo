@@ -1,15 +1,22 @@
-/// @description USAR WARP (RÁPIDO)
+/// @description SISTEMA DE VIAJE
 
-// Detener movimiento
 path_end();
 
-// Teletransportar
-x = other.target_x;
-y = other.target_y;
-
-// Resetear estado
-state = "IDLE";
-
-// CAMBIO: Esperar solo 15 frames (0.25 seg) en la nueva sala antes de moverse
-// Antes era 60. Esto hace que cruce la puerta y siga caminando fluido.
-alarm[0] = 15;
+// 1. ¿Es un teletransporte en la misma sala?
+if (other.target_room == room) {
+    x = other.target_x;
+    y = other.target_y;
+    state = "IDLE";
+    alarm[0] = 15;
+}
+// 2. ¿Es un viaje a OTRA sala?
+else {
+    // Verificamos que el Director exista para que guarde el dato
+    if (instance_exists(obj_director_ia)) {
+        // Como 'registrar_viaje' ahora es un Script, lo llamamos directo
+        registrar_viaje(object_index, other.target_room, other.target_x, other.target_y);
+        
+        // Destruimos al animatrónico físico
+        instance_destroy();
+    }
+}
