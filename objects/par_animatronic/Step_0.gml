@@ -8,8 +8,8 @@ if (_player != noone) {
     var _dist = point_distance(x, y, _player.x, _player.y);
     
     // Rango de visión
-    if (_dist < 900) {
-        // Raycast: Solo obj_pared bloquea la visión (obj_pared_2 es transparente)
+    if (_dist < 999) {
+        // Raycast: Solo obj_pared bloquea la visión
         var _col = collision_line(x, y, _player.x, _player.y, obj_pared, false, false);
         
         if (_col == noone) {
@@ -39,27 +39,34 @@ if (state == "CHASE") {
     if (_seen) {
         // Optimizacion: Recalcula ruta cada 15 frames
         if (current_time % 15 == 0) {
+            
+            // INTENTO 1: Usar el Grid (Lo ideal)
             if (mp_grid_path(grid_ia, path, x, y, _player.x, _player.y, true)) {
-                path_start(path, 4.0, path_action_stop, true); // Velocidad persecución
+                path_start(path, 5.0, path_action_stop, true); 
+            } 
+            // INTENTO 2 (EL ARREGLO): Si el Grid falla (por eso se congelaba), pero te veo...
+            else {
+                path_end(); // Deja de intentar seguir el camino viejo
+                // Muévete directo hacia el jugador con la MISMA velocidad (5.0)
+                // Usamos mp_potential_step para que no se choque con cosas mientras va directo
+                mp_potential_step(_player.x, _player.y, 5.0, false);
             }
         }
     } 
     // 2. SI NO LO VEO (Se escondió o salió del ángulo):
     else {
-        // AQUÍ ESTABA EL ERROR: Antes hacíamos path_end() inmediatamente.
-        // AHORA: Dejamos que termine su camino actual (ir a la última posición conocida)
+        // Dejamos que termine su camino actual (ir a la última posición conocida)
         
-        // Solo nos rendimos si ya llegamos al destino y seguimos sin verlo
         if (path_position >= 0.98) {
-            path_end();     // Ahora sí frenamos
+            path_end();     
             state = "IDLE"; 
-            alarm[0] = 20;  // Pequeña pausa antes de volver a patrullar
+            alarm[0] = 20;  
         }
         
-        // Opcional: Si se quedó atascado intentando llegar a esa última posición
+        // Anti-atasco mientras persigue a ciegas
         if (path_speed > 0 && x == xp && y == yp) {
              stuck_timer++;
-             if (stuck_timer > 30) { // Si lleva medio segundo atascado persiguiendo un fantasma
+             if (stuck_timer > 30) { 
                  state = "IDLE";
                  alarm[0] = 10;
                  stuck_timer = 0;
@@ -76,44 +83,43 @@ if (state == "CHASE") {
 else if (state == "IDLE") {
     image_speed = 0;
     image_index = 0;
-    // Espera a que la Alarm 0 se active para moverse
 }
 
 // CASO C: PATRULLANDO
 else if (state == "MOVING") {
     image_speed = 1;
     
-    // Chequear si llegó al final del camino
     if (path_position >= 0.98) {
         path_end();
         state = "IDLE";
-        // CAMBIO: Espera variable y corta (entre 0.5 y 1.5 segundos)
-        // Antes era fijo 60. Ahora es más impredecible y rápido.
-		// 30 frames = 0.5 segundos
-		// 60 frames = 1.0 segundo
         alarm[0] = irandom_range(30, 60); 
     }
     
-    // Sistema Anti-Atascamiento
     if (point_distance(x, y, xp, yp) < 1) {
         stuck_timer++;
         if (stuck_timer > 60) { 
             path_end();
             state = "IDLE";
-            alarm[0] = 5; // Reacciona casi instantáneo si se atasca
+            alarm[0] = 5; 
             stuck_timer = 0;
         }
     } else {
         stuck_timer = 0; 
     }
     
-    // Actualizar posición para el siguiente frame
     xp = x;
     yp = y;
 }
 
-// --- 3. ANIMACIÓN Y DIRECCIÓN ---
-if (path_speed > 0) { 
+// --- 3. ANIMACIÓN Y DIRECCIÓN (CORREGIDO) ---
+
+// CAMBIO IMPORTANTE:
+// Antes decía: if (path_speed > 0)
+// Ahora dice:  if (path_speed > 0 || x != xprevious || y != yprevious)
+// Explicación: Cuando usamos el "Arreglo del Intento 2" arriba, path_speed es 0,
+// pero el objeto se mueve. Con este cambio, detectamos CUALQUIER movimiento para animar.
+
+if (path_speed > 0 || x != xprevious || y != yprevious) { 
     var _dir = round(direction / 90);
     if (_dir == 4) _dir = 0;
     

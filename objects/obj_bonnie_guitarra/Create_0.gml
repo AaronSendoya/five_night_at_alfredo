@@ -13,4 +13,4 @@ spr_izquierda = sp_bonnie_caminar_izquierda_guitarra;
 // Ejemplo: Bonnie podría ser más rápido o ver menos
 move_speed = 1.9;
 chase_speed = 9.0;
-vision_range = 800; // Ve un poco más lejos
+vision_range = 990; // Ve un poco más lejos
