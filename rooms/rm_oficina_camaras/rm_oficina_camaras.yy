@@ -1347,6 +1347,7 @@
   "creationCodeFile": "",
   "inheritCode": false,
   "instanceCreationOrder": [
+    {"name":"inst_381DF3CD","path":"rooms/rm_oficina_camaras/rm_oficina_camaras.yy",},
     {"name":"inst_545DDE24","path":"rooms/rm_oficina_camaras/rm_oficina_camaras.yy",},
     {"name":"inst_469B0CDD","path":"rooms/rm_oficina_camaras/rm_oficina_camaras.yy",},
     {"name":"inst_71E41980","path":"rooms/rm_oficina_camaras/rm_oficina_camaras.yy",},
@@ -2593,7 +2594,6 @@
     {"name":"inst_3D0770C6","path":"rooms/rm_oficina_camaras/rm_oficina_camaras.yy",},
     {"name":"inst_1EAC689A","path":"rooms/rm_oficina_camaras/rm_oficina_camaras.yy",},
     {"name":"inst_1FD6E5B","path":"rooms/rm_oficina_camaras/rm_oficina_camaras.yy",},
-    {"name":"inst_381DF3CD","path":"rooms/rm_oficina_camaras/rm_oficina_camaras.yy",},
   ],
   "inheritCreationOrder": false,
   "sequenceId": null,

@@ -1,4 +1,4 @@
-/// @description Configuración COMPLETA
+/// @description Configuración COMPLETA + Auto-Registro
 
 // 1. Sprites (Definir en los hijos)
 spr_frente = noone;
@@ -22,9 +22,7 @@ grid_ia = mp_grid_create(0, 0, _hcells, _vcells, grid_cell_size, grid_cell_size)
 // Añadimos las paredes OPACAS (Bloquean paso Y visión)
 mp_grid_add_instances(grid_ia, obj_pared, false);
 
-// --- NUEVO ---
 // Añadimos las paredes TRANSPARENTES (Bloquean paso PERO NO visión)
-// Asegúrate de que obj_pared_2 existe en tu proyecto
 mp_grid_add_instances(grid_ia, obj_pared_2, false); 
 
 // 4. PUNTOS DE INTERÉS
@@ -44,3 +42,28 @@ alarm[0] = 60;
 xp = x;
 yp = y;
 stuck_timer = 0;
+
+// (AQUÍ BORRAMOS LAS VARIABLES SOBRANTES: target_x, remember_timer, etc.)
+
+// =========================================================
+// SISTEMA DE AUTO-REGISTRO (OPCIÓN B - DRAG & DROP SEGURO)
+// =========================================================
+
+if (instance_exists(obj_director_ia) && variable_global_exists("ubicaciones")) {
+    
+    // CASO 1: PRIMERA VEZ (Inicio)
+    if (!ds_map_exists(global.ubicaciones, object_index)) {
+        registrar_viaje(object_index, room, x, y);
+    }
+    
+    // CASO 2: YA REGISTRADO (Seguridad)
+    else {
+        var _datos = global.ubicaciones[? object_index];
+        
+        // Si debería estar en otra sala, me destruyo
+        if (_datos.sala != room) {
+            instance_destroy();
+            exit; 
+        }
+    }
+}
