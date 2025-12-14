@@ -1,4 +1,43 @@
-/// @description Control Total (Visión Ampliada + Patrulla + Persecución)
+/// @description Control Total (Con Bloqueo de IA)
+
+// ---------------------------------------------------------
+// 0. GATEKEEPER (Control de Actividad)
+// ---------------------------------------------------------
+
+// CASO 1: ¿Soy Nivel 0? (Dificultad apagada)
+if (!is_active_by_level) {
+    image_speed = 0;
+    image_index = 0;
+    path_end(); // Aseguramos que no se mueva
+    exit; 
+}
+
+// CASO 2: ¿Son las 12:00 AM y el juego aún no arranca la noche?
+if (!global.animatronics_active) {
+    image_speed = 0;
+    image_index = 0;
+    path_end();
+    exit; 
+}
+
+// CASO 3: TEMPORIZADOR INDIVIDUAL (El Despertador)
+// Si la noche ya empezó, empezamos a descontar mi tiempo personal
+if (boot_timer_frames > 0) {
+    boot_timer_frames -= 1; // Restar 1 frame
+    
+    // --- CORRECCIÓN DEL BUG VISUAL ---
+    image_speed = 0;
+    image_index = 0;
+    path_end();    // Frenamos cualquier movimiento residual
+    alarm[0] = 60; // ¡IMPORTANTE! Posponemos la alarma de patrulla constantemente
+                   // Así nunca llega a cero mientras estemos "durmiendo".
+    
+    exit; // Aún estoy "durmiendo" o preparándome
+}
+
+// ---------------------------------------------------------
+// IA ORIGINAL (INTACTA)
+// ---------------------------------------------------------
 
 // --- 1. SISTEMA DE VISIÓN ---
 var _player = instance_nearest(x, y, obj_jugador);
@@ -9,15 +48,10 @@ if (_player != noone) {
     
     // Rango de visión
     if (_dist < 999) {
-        // Raycast: Solo obj_pared bloquea la visión
         var _col = collision_line(x, y, _player.x, _player.y, obj_pared, false, false);
-        
         if (_col == noone) {
-            // Ángulo
             var _angle_to_player = point_direction(x, y, _player.x, _player.y);
             var _angle_diff = abs(angle_difference(direction, _angle_to_player));
-            
-            // Ángulo de 120 (Visión periférica amplia)
             if (_angle_diff <= 120) { 
                 _seen = true;
             }
@@ -25,7 +59,7 @@ if (_player != noone) {
     }
 }
 
-// SI TE VE: Forzar estado de persecución inmediatamente
+// SI TE VE: Forzar estado de persecución
 if (_seen) {
     state = "CHASE";
 }
@@ -34,36 +68,23 @@ if (_seen) {
 
 // CASO A: PERSECUCIÓN
 if (state == "CHASE") {
-    
-    // 1. SI LO VEO: Actualizo la ruta hacia él
     if (_seen) {
-        // Optimizacion: Recalcula ruta cada 15 frames
         if (current_time % 15 == 0) {
-            
-            // INTENTO 1: Usar el Grid (Lo ideal)
             if (mp_grid_path(grid_ia, path, x, y, _player.x, _player.y, true)) {
-                path_start(path, 5.0, path_action_stop, true); 
+                path_start(path, chase_speed, path_action_stop, true); 
             } 
-            // INTENTO 2 (EL ARREGLO): Si el Grid falla (por eso se congelaba), pero te veo...
             else {
-                path_end(); // Deja de intentar seguir el camino viejo
-                // Muévete directo hacia el jugador con la MISMA velocidad (5.0)
-                // Usamos mp_potential_step para que no se choque con cosas mientras va directo
-                mp_potential_step(_player.x, _player.y, 5.0, false);
+                path_end(); 
+                mp_potential_step(_player.x, _player.y, chase_speed, false);
             }
         }
     } 
-    // 2. SI NO LO VEO (Se escondió o salió del ángulo):
     else {
-        // Dejamos que termine su camino actual (ir a la última posición conocida)
-        
         if (path_position >= 0.98) {
             path_end();     
             state = "IDLE"; 
             alarm[0] = 20;  
         }
-        
-        // Anti-atasco mientras persigue a ciegas
         if (path_speed > 0 && x == xp && y == yp) {
              stuck_timer++;
              if (stuck_timer > 30) { 
@@ -92,7 +113,7 @@ else if (state == "MOVING") {
     if (path_position >= 0.98) {
         path_end();
         state = "IDLE";
-        alarm[0] = irandom_range(30, 60); 
+        alarm[0] = irandom_range(patrol_wait_min, patrol_wait_max); 
     }
     
     if (point_distance(x, y, xp, yp) < 1) {
@@ -111,14 +132,7 @@ else if (state == "MOVING") {
     yp = y;
 }
 
-// --- 3. ANIMACIÓN Y DIRECCIÓN (CORREGIDO) ---
-
-// CAMBIO IMPORTANTE:
-// Antes decía: if (path_speed > 0)
-// Ahora dice:  if (path_speed > 0 || x != xprevious || y != yprevious)
-// Explicación: Cuando usamos el "Arreglo del Intento 2" arriba, path_speed es 0,
-// pero el objeto se mueve. Con este cambio, detectamos CUALQUIER movimiento para animar.
-
+// --- 3. ANIMACIÓN Y DIRECCIÓN ---
 if (path_speed > 0 || x != xprevious || y != yprevious) { 
     var _dir = round(direction / 90);
     if (_dir == 4) _dir = 0;

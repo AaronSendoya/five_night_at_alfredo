@@ -1347,6 +1347,7 @@
   "creationCodeFile": "",
   "inheritCode": false,
   "instanceCreationOrder": [
+    {"name":"inst_11ED3114","path":"rooms/rm_oficina_camaras/rm_oficina_camaras.yy",},
     {"name":"inst_381DF3CD","path":"rooms/rm_oficina_camaras/rm_oficina_camaras.yy",},
     {"name":"inst_545DDE24","path":"rooms/rm_oficina_camaras/rm_oficina_camaras.yy",},
     {"name":"inst_469B0CDD","path":"rooms/rm_oficina_camaras/rm_oficina_camaras.yy",},
@@ -2579,7 +2580,6 @@
     {"name":"inst_2CB3D411","path":"rooms/rm_oficina_camaras/rm_oficina_camaras.yy",},
     {"name":"inst_5D834F85","path":"rooms/rm_oficina_camaras/rm_oficina_camaras.yy",},
     {"name":"inst_6CE35C35","path":"rooms/rm_oficina_camaras/rm_oficina_camaras.yy",},
-    {"name":"inst_11ED3114","path":"rooms/rm_oficina_camaras/rm_oficina_camaras.yy",},
     {"name":"inst_21351DF8","path":"rooms/rm_oficina_camaras/rm_oficina_camaras.yy",},
     {"name":"inst_32DECEEF","path":"rooms/rm_oficina_camaras/rm_oficina_camaras.yy",},
     {"name":"inst_5DAAA015","path":"rooms/rm_oficina_camaras/rm_oficina_camaras.yy",},
