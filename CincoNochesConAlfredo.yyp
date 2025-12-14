@@ -23,6 +23,7 @@
     {"id":{"name":"par_interactable","path":"objects/par_interactable/par_interactable.yy",},"order":0,},
     {"id":{"name":"sp_bonnie_caminar_atras_guitarra","path":"sprites/sp_bonnie_caminar_atras_guitarra/sp_bonnie_caminar_atras_guitarra.yy",},"order":3,},
     {"id":{"name":"sp_phantom_caminar_derecha","path":"sprites/sp_phantom_caminar_derecha/sp_phantom_caminar_derecha.yy",},"order":2,},
+    {"id":{"name":"fnt_pixel_large","path":"fonts/fnt_pixel_large/fnt_pixel_large.yy",},"order":4,},
     {"id":{"name":"o_game_controller","path":"objects/o_game_controller/o_game_controller.yy",},"order":1,},
     {"id":{"name":"sp_escenario_principal","path":"sprites/sp_escenario_principal/sp_escenario_principal.yy",},"order":6,},
     {"id":{"name":"obj_item","path":"objects/obj_item/obj_item.yy",},"order":8,},

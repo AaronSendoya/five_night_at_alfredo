@@ -1,7 +1,7 @@
 {
   "resourceType": "GMFont",
   "resourceVersion": "1.0",
-  "name": "fnt_pixel",
+  "name": "fnt_pixel_large",
   "hinting": 0,
   "glyphOperations": 0,
   "interpreter": 0,

@@ -1,41 +1,75 @@
-// Si el juego ya terminó, no hacemos nada
-if (game_ended) exit;
+/// @description Lógica Principal (Intro -> Juego -> Final)
 
-// 1. AUMENTAR EL TIEMPO
-// delta_time nos da el tiempo en microsegundos desde el último frame.
-// Dividir por 1.000.000 lo convierte a segundos.
-// Esto hace que el reloj sea preciso aunque el juego tenga lag.
-game_timer += delta_time / 1000000;
+// ---------------------------------------------------------
+// ESTADO 1: INTRODUCCIÓN ("NIGHT X")
+// ---------------------------------------------------------
+if (visual_state == "INTRO") {
+    if (intro_timer > 0) {
+        intro_timer -= 1;
+    } else {
+        visual_state = "GAME";
+        alarm[0] = 60; 
+    }
+    exit;
+}
 
-// 2. CALCULAR HORA Y MINUTOS
-// Total de horas pasadas desde el inicio
-var _hours_passed = floor(game_timer / seconds_per_hour);
-
-// Calculamos la hora actual (12 + horas pasadas)
-// El truco del % 12 es para formato 12h, pero simple:
-var _raw_hour = start_hour + _hours_passed;
-if (_raw_hour > 12) _raw_hour -= 12; // Convertir 13 a 1, 14 a 2, etc.
-current_hour_display = _raw_hour;
-
-// Calculamos minutos (regla de tres simple)
-// Porcentaje de la hora actual * 60 minutos
-var _seconds_into_hour = game_timer % seconds_per_hour;
-current_minute_display = floor((_seconds_into_hour / seconds_per_hour) * 60);
-
-// 3. CHEQUEO DE VICTORIA (6 AM)
-// Si han pasado 6 horas completas (6 * 90s = 540s)
-if (_hours_passed >= (end_hour)) { // Nota: asumiendo que start es 12 y queremos llegar a 6 horas después
-    game_ended = true;
-    current_hour_display = 6;
-    current_minute_display = 0;
+// ---------------------------------------------------------
+// ESTADO 2: JUEGO (RELOJ CORRIENDO)
+// ---------------------------------------------------------
+if (visual_state == "GAME") {
     
-    // APAGADO DE EMERGENCIA (SHUTDOWN)
-    global.animatronics_active = false;
+    if (game_ended) exit;
+
+    game_timer += delta_time / 1000000;
+
+    var _hours_passed = floor(game_timer / seconds_per_hour);
+    var _raw_hour = start_hour + _hours_passed;
+    if (_raw_hour > 12) _raw_hour -= 12; 
+    current_hour_display = _raw_hour;
+
+    var _seconds_into_hour = game_timer % seconds_per_hour;
+    current_minute_display = floor((_seconds_into_hour / seconds_per_hour) * 60);
+
+    // VICTORIA (6:00 AM)
+    if (_hours_passed >= end_hour) { 
+        game_ended = true;
+        current_hour_display = 6;
+        current_minute_display = 0;
+        
+        global.animatronics_active = false;
+        visual_state = "OUTRO"; // Pasamos a la celebración
+        
+        show_debug_message("¡6:00 AM! Noche completada.");
+    }
+}
+
+// ---------------------------------------------------------
+// ESTADO 3: FINAL (CONFETI Y TRANSICIÓN)
+// ---------------------------------------------------------
+if (visual_state == "OUTRO") {
     
-    // Lógica de ganar
-    show_debug_message("¡6:00 AM! Noche completada.");
-    // room_goto(rm_win_screen); o instance_create_layer(..., o_win_sequence);
-}/// @description Insert description here
-// You can write your code in this editor
-
-
+    // 1. Mover confeti
+    for (var i = 0; i < confetti_count; i++) {
+        var _p = confetti_particles[i];
+        _p.y += _p.spd; 
+        if (_p.y > display_get_gui_height() + 10) {
+            _p.y = -10;
+            _p.x = irandom(display_get_gui_width());
+        }
+    }
+    
+    // 2. NUEVO: Lógica de paso de nivel
+    if (outro_timer > 0) {
+        outro_timer -= 1; // Esperamos 5 segundos viendo el confeti
+    } 
+    else {
+        // ¡TIEMPO CUMPLIDO! PASAMOS A LA SIGUIENTE NOCHE
+        
+        global.current_night += 1; // Aumentar noche (1 -> 2)
+        
+        // Reiniciamos la sala. 
+        // Al reiniciar, el Create se ejecutará de nuevo, cargará la noche nueva
+        // y mostrará la INTRO de la "NIGHT 2".
+        room_restart(); 
+    }
+}
