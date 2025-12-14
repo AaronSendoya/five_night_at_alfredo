@@ -76,7 +76,7 @@ night_settings = {
         // Tiempos de espera (Boot Times) - 
         boot_time_alfredo: 0,
         boot_time_matilda: 90,
-        boot_time_bongo: 10, 
+        boot_time_bongo: 30, 
         boot_time_rufus: 0
     },
     n2: {
