@@ -30,6 +30,7 @@
     {"id":{"name":"o_game_controller","path":"objects/o_game_controller/o_game_controller.yy",},"order":1,},
     {"id":{"name":"sp_escenario_principal","path":"sprites/sp_escenario_principal/sp_escenario_principal.yy",},"order":6,},
     {"id":{"name":"obj_ventilation","path":"objects/obj_ventilation/obj_ventilation.yy",},"order":12,},
+    {"id":{"name":"obj_escondite","path":"objects/obj_escondite/obj_escondite.yy",},"order":13,},
     {"id":{"name":"obj_item","path":"objects/obj_item/obj_item.yy",},"order":8,},
     {"id":{"name":"obj_withered_bonnie","path":"objects/obj_withered_bonnie/obj_withered_bonnie.yy",},"order":4,},
     {"id":{"name":"sp_warp","path":"sprites/sp_warp/sp_warp.yy",},"order":1,},
