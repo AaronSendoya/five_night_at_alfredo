@@ -1,15 +1,18 @@
-/// @description USAR WARP (RÁPIDO)
+/// @description CONGELARSE Y ESPERAR (1 Seg)
 
-// Detener movimiento
+// Si ya estoy esperando para viajar, no hago nada
+if (state == "WARPING") exit;
+
+// 1. Congelar estado
+state = "WARPING";
 path_end();
+image_speed = 0;
+image_index = 0;
 
-// Teletransportar
-x = other.target_x;
-y = other.target_y;
+// 2. Guardar a dónde iba 
+warp_target_room = other.target_room;
+warp_target_x = other.target_x;
+warp_target_y = other.target_y;
 
-// Resetear estado
-state = "IDLE";
-
-// CAMBIO: Esperar solo 15 frames (0.25 seg) en la nueva sala antes de moverse
-// Antes era 60. Esto hace que cruce la puerta y siga caminando fluido.
-alarm[0] = 15;
+// 3. Activar la cuenta regresiva (1 Segundo)
+alarm[1] = 30;

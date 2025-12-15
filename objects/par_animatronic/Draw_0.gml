@@ -3,8 +3,8 @@
 draw_self();
 
 // --- 1. DIBUJAR CAMPO DE VISIÓN (Cono) ---
-var _fov_angle = 120; // DEBE COINCIDIR CON EL STEP (120)
-var _view_dist = 900; // DEBE COINCIDIR CON EL STEP (250)
+var _fov_angle = 150; // DEBE COINCIDIR CON EL STEP (120)
+var _view_dist = 999; // DEBE COINCIDIR CON EL STEP (250)
 var _segments = 20;   // Calidad del dibujo
 
 draw_set_alpha(0.2);  // Transparencia

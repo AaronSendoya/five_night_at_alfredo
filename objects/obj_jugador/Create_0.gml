@@ -2,7 +2,7 @@
 
 // --- MOVIMIENTO ---
 // Velocidad base que ya tenías
-velocidad = 7;
+velocidad = 6.5;
 
 // Velocidades derivadas
 velocidad_walk = velocidad;          // caminar normal
@@ -13,11 +13,11 @@ velocidad_actual = velocidad_walk;   // la que usamos en el Step
 image_speed = 0;
 
 // --- SPRINT / BARRA DE CARRERA ---
-sprint_max = 200;             // valor máximo de “energía de sprint”
+sprint_max = 220;             // valor máximo de “energía de sprint”
 sprint_actual = sprint_max;   // empieza lleno
 sprint_gasto = 1.3;           // cuánto se gasta por step al correr
-sprint_recuperacion = 0.9;    // cuánto se recupera por step cuando NO corre
-sprint_cooldown_time = 60;    // frames de enfriamiento cuando se vacía (1 seg a 60fps)
+sprint_recuperacion = 0.7;    // cuánto se recupera por step cuando NO corre
+sprint_cooldown_time = 120;    // frames de enfriamiento cuando se vacía (1 seg a 60fps)
 sprint_cooldown = 0;          // contador de enfriamiento (0 = sin enfriamiento)
 corriendo = false;            // flag para saber si está corriendo
 
