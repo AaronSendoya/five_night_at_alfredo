@@ -77,7 +77,6 @@
             {"resourceType":"GMOverriddenProperty","resourceVersion":"1.0","name":"","propertyId":{"name":"target_x","path":"objects/obj_warp/obj_warp.yy",},"objectId":{"name":"obj_warp","path":"objects/obj_warp/obj_warp.yy",},"value":"1407",},
             {"resourceType":"GMOverriddenProperty","resourceVersion":"1.0","name":"","propertyId":{"name":"sprite_llegada","path":"objects/obj_warp/obj_warp.yy",},"objectId":{"name":"obj_warp","path":"objects/obj_warp/obj_warp.yy",},"value":"sp_shadow_caminar_atras",},
           ],"isDnd":false,"objectId":{"name":"obj_warp","path":"objects/obj_warp/obj_warp.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":8.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":1280.0,"y":6560.0,},
-        {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_11ED3114","properties":[],"isDnd":false,"objectId":{"name":"o_game_controller","path":"objects/o_game_controller/o_game_controller.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":-128.0,"y":-160.0,},
         {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_76DE4469","properties":[],"isDnd":false,"objectId":{"name":"obj_pared_2","path":"objects/obj_pared_2/obj_pared_2.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":21.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":1664.0,"y":5984.0,},
         {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_47084B18","properties":[],"isDnd":false,"objectId":{"name":"obj_pared_2","path":"objects/obj_pared_2/obj_pared_2.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":17.0,"scaleY":6.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":1664.0,"y":5792.0,},
         {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_49C6E859","properties":[],"isDnd":false,"objectId":{"name":"obj_pared_2","path":"objects/obj_pared_2/obj_pared_2.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":1.0,"scaleY":5.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":1664.0,"y":5824.0,},
@@ -914,7 +913,6 @@
   "creationCodeFile": "",
   "inheritCode": false,
   "instanceCreationOrder": [
-    {"name":"inst_11ED3114","path":"rooms/rm_oficina_camaras/rm_oficina_camaras.yy",},
     {"name":"inst_381DF3CD","path":"rooms/rm_oficina_camaras/rm_oficina_camaras.yy",},
     {"name":"inst_545DDE24","path":"rooms/rm_oficina_camaras/rm_oficina_camaras.yy",},
     {"name":"inst_408F3A3B","path":"rooms/rm_oficina_camaras/rm_oficina_camaras.yy",},
