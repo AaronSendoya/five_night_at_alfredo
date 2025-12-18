@@ -2,7 +2,7 @@
 
 // --- MOVIMIENTO ---
 // Velocidad base que ya tenías
-velocidad = 6.5;
+velocidad = 6.0;
 
 // Velocidades derivadas
 velocidad_walk = velocidad;          // caminar normal
