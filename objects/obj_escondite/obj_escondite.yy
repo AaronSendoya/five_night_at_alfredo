@@ -7,7 +7,7 @@
     "path": "sprites/sp_gatillo/sp_gatillo.yy",
   },
   "solid": false,
-  "visible": false,
+  "visible": true,
   "managed": true,
   "spriteMaskId": null,
   "persistent": false,

@@ -83,7 +83,7 @@ if (mostrar_mensaje && !is_repairing) {
     
     if (contar_activos() < 4) {
         draw_set_color(c_yellow);
-        draw_text(x, y - 220, "MANTÉN [E] PARA REPARAR"); 
+        draw_text(x, y - 220, "MANTEN [E] PARA REPARAR"); 
     } else {
         draw_set_color(c_lime);
         draw_text(x, y - 220, "SISTEMA ESTABLE");

@@ -3,8 +3,8 @@
   "resourceVersion": "1.0",
   "name": "obj_pc_trigger",
   "spriteId": {
-    "name": "sp_adorno",
-    "path": "sprites/sp_adorno/sp_adorno.yy",
+    "name": "sp_tecla_e",
+    "path": "sprites/sp_tecla_e/sp_tecla_e.yy",
   },
   "solid": false,
   "visible": true,

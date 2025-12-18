@@ -12,6 +12,7 @@ coords_camaras[2] = [0, 5055];    // Cocina
 coords_camaras[3] = [0, 1663];    // Arcade
 coords_camaras[4] = [2975, 3360]; // Almacen
 coords_camaras[5] = [0, 3296];    // Escenario
+coords_camaras[6] = [2979, 5056];    // Escenario Atras
 total_camaras = array_length(coords_camaras);
 
 
@@ -28,6 +29,7 @@ zonas_juego[3] = [0, 5055];    // Cocina
 zonas_juego[4] = [0, 1663];    // Arcade
 zonas_juego[5] = [2975, 3360]; // Almacen
 zonas_juego[6] = [0, 3296];    // Escenario
+zonas_juego[6] = [2979, 5056];    // Escenario atras
 
 // Tamaño aproximado de tus salas (ancho y alto de la pantalla)
 // Esto sirve para saber si el jugador está dentro.

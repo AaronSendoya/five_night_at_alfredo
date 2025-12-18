@@ -136,7 +136,7 @@ for (var i = 0; i < confetti_count; i++) {
 // =========================================================
 night_settings = {
     n1: {
-        fuse_spawn_seconds: 10, // <--- ESTO ES LO QUE QUEREMOS LEER
+        fuse_spawn_seconds: 50, 
         ai_alfredo: 0, 
         ai_matilda: 10, 
         ai_bongo: 10, 
