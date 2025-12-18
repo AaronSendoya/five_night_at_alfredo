@@ -33,6 +33,7 @@
     {"id":{"name":"sp_fondo_menu_principal","path":"sprites/sp_fondo_menu_principal/sp_fondo_menu_principal.yy",},"order":8,},
     {"id":{"name":"obj_subtitle_controller","path":"objects/obj_subtitle_controller/obj_subtitle_controller.yy",},"order":6,},
     {"id":{"name":"snd_camera","path":"sounds/snd_camera/snd_camera.yy",},"order":5,},
+    {"id":{"name":"sp_fondo_cuarto_secreto","path":"sprites/sp_fondo_cuarto_secreto/sp_fondo_cuarto_secreto.yy",},"order":9,},
     {"id":{"name":"shd_monitor_crt_2","path":"shaders/shd_monitor_crt_2/shd_monitor_crt_2.yy",},"order":1,},
     {"id":{"name":"sp_fondo_camaras","path":"sprites/sp_fondo_camaras/sp_fondo_camaras.yy",},"order":2,},
     {"id":{"name":"sp_witheredBonnie_caminar_frente","path":"sprites/sp_witheredBonnie_caminar_frente/sp_witheredBonnie_caminar_frente.yy",},"order":0,},
