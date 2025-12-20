@@ -13,7 +13,7 @@ event_inherited(); // Iniciar Grid y Listas
 
 // 2. ESTADÍSTICAS DE VELOCIDAD (Foxy es el más rápido)
 velocidad_normal = 3.5; 
-velocidad_caza   = 6.3; // Aumentada para que sea casi imposible escapar a pie
+velocidad_caza   = 6.0; // Aumentada para que sea casi imposible escapar a pie
 
 move_speed  = velocidad_normal;
 chase_speed = velocidad_caza;

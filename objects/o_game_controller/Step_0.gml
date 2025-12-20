@@ -43,33 +43,40 @@ switch (visual_state) {
         // --- A. RELOJ DEL JUEGO ---
         game_timer += delta_time / 1000000;
         var _hours_passed = floor(game_timer / seconds_per_hour);
-        
+
         // VERIFICAR VICTORIA (6 AM)
-        if (_hours_passed >= 6) { 
-            visual_state = "OUTRO";       
-            game_ended = true;            
-            global.animatronics_active = false; 
-            with(par_animatronic) { alarm[0] = -1; state = "IDLE"; }
-            break; 
+        if (_hours_passed >= 6) {
+            visual_state = "OUTRO";
+            game_ended = true;
+            global.animatronics_active = false;
+
+            with (par_animatronic) { alarm[0] = -1; state = "IDLE"; }
+
+            if (!played_6am) {
+                audio_play_sound(snd_6am, 100, false);
+                played_6am = true;
+            }
+
+            break;
         }
 
         // Actualización Visual del Reloj
         var _raw_hour = start_hour + _hours_passed;
-        if (_raw_hour > 12) _raw_hour -= 12; 
+        if (_raw_hour > 12) _raw_hour -= 12;
         current_hour_display = _raw_hour;
 
         var _seconds_into_hour = game_timer % seconds_per_hour;
         current_minute_display = floor((_seconds_into_hour / seconds_per_hour) * 60);
 
         // --- B. SISTEMA DE FALLOS ELÉCTRICOS ---
-        if (global.animatronics_active) { 
-            fuse_system_timer += delta_time / 1000000; 
-            
+        if (global.animatronics_active) {
+            fuse_system_timer += delta_time / 1000000;
+
             if (fuse_system_timer >= global.fuse_interval) {
-                fuse_system_timer = 0; 
+                fuse_system_timer = 0;
                 if (random(100) < global.fuse_chance) {
                     if (instance_exists(obj_panel_fusibles)) {
-                        with(obj_panel_fusibles) quemar_fusible_aleatorio();
+                        with (obj_panel_fusibles) quemar_fusible_aleatorio();
                     }
                 }
             }
@@ -77,7 +84,7 @@ switch (visual_state) {
 
         // --- C. SPAWNER AUTOMÁTICO DE FUSIBLES (CORREGIDO PAREDES) ---
         if (variable_global_exists("night_config")) {
-            
+
             // Verificamos configuración
             var _spawn_time = -1;
             if (variable_struct_exists(global.night_config, "fuse_spawn_seconds")) {
@@ -101,13 +108,14 @@ switch (visual_state) {
                     while (_intentos < 100) {
                         _spawn_x = irandom_range(_margen, room_width - _margen);
                         _spawn_y = irandom_range(_margen, room_height - _margen);
+
                         // Verificamos que NO colisione con obj_pared Y TAMPOCO con obj_pared_2
                         var _libre_pared_1 = !position_meeting(_spawn_x, _spawn_y, obj_pared);
                         var _libre_pared_2 = !position_meeting(_spawn_x, _spawn_y, obj_pared_2);
 
                         if (_libre_pared_1 && _libre_pared_2) {
                             _encontrado = true;
-                            break; 
+                            break;
                         }
                         _intentos++;
                     }
@@ -139,17 +147,27 @@ switch (visual_state) {
     case "OUTRO":
         for (var i = 0; i < confetti_count; i++) {
             var _p = confetti_particles[i];
-            _p.y += _p.spd; 
+            _p.y += _p.spd;
             if (_p.y > display_get_gui_height() + 10) {
                 _p.y = -10;
                 _p.x = irandom(display_get_gui_width());
             }
         }
-        
-        if (outro_timer > 0) outro_timer -= 1; 
-        else {
-            global.current_night += 1; 
-            game_restart(); 
+
+        if (outro_timer > 0) {
+            outro_timer -= 1;
+        } else {
+
+            // =====================================================
+            // NUEVO: SI TERMINASTE LA NOCHE 4 -> CERRAR EL JUEGO
+            // =====================================================
+            if (global.current_night >= 4) {
+                show_debug_message("FIN DEL JUEGO: Noche 4 completada.");
+                game_end();
+            } else {
+                global.current_night += 1;
+                game_restart();
+            }
         }
         break;
 }

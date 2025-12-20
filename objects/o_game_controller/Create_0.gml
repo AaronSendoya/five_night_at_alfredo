@@ -65,7 +65,8 @@ global.night_config = -1;
 game_timer = 0;             
 seconds_per_hour = 70;      
 start_hour = 12;            
-end_hour = 6;               
+end_hour = 6; 
+played_6am = false;
 
 current_hour_display    = 12; 
 current_minute_display = 0;
@@ -83,7 +84,7 @@ if (room == rm_menu_principal) {
 // Valores por defecto
 visual_state = "TUTORIAL"; 
 intro_timer = 180;
-outro_timer = 300; 
+outro_timer = 600; 
 
 // =========================================================
 // 3. INTEGRACIÓN: LÓGICA DE MEMORIA
@@ -136,46 +137,61 @@ for (var i = 0; i < confetti_count; i++) {
 // =========================================================
 night_settings = {
     n1: {
-        fuse_spawn_seconds: 50, 
+        fuse_spawn_seconds: 60, 
         ai_alfredo: 0, 
-        ai_matilda: 0, 
-        ai_bongo: 0, 
-        ai_rufus: 20,
+        ai_matilda: 5, 
+        ai_bongo: 5, 
+        ai_rufus: 5,
         max_chases: 2,
-        boot_time_alfredo: 10,
-        boot_time_matilda: 10,
-        boot_time_bongo: 10, 
-        boot_time_rufus: 10,
+        boot_time_alfredo: 0,
+        boot_time_matilda: 130,
+        boot_time_bongo: 110, 
+        boot_time_rufus: 140,
         fuse_burn_interval: 70,    
         fuse_burn_chance: 40,      
-        start_broken_fuses: 2      
+        start_broken_fuses: 0      
     },
     n2: {
-        fuse_spawn_seconds: 50,
-        ai_alfredo: 15, 
-        ai_matilda: 15, 
-        ai_bongo: 15, 
-        ai_rufus: 15,
+        fuse_spawn_seconds: 40,
+        ai_alfredo: 10, 
+        ai_matilda: 10, 
+        ai_bongo: 10, 
+        ai_rufus: 10,
         max_chases: 3,
-        boot_time_alfredo: 100,
+        boot_time_alfredo: 130,
         boot_time_matilda: 80,
         boot_time_bongo: 70,
-        boot_time_rufus: 0,
+        boot_time_rufus: 50,
         fuse_burn_interval: 50,  
         fuse_burn_chance: 45,    
         start_broken_fuses: 0    
     },
     n3: {
-        fuse_spawn_seconds: 55,
+        fuse_spawn_seconds: 30,
+        ai_alfredo: 15, 
+        ai_matilda: 15, 
+        ai_bongo: 15, 
+        ai_rufus: 15,
+        max_chases: 4,
+        boot_time_alfredo: 70,
+        boot_time_matilda: 40,
+        boot_time_bongo: 30,
+        boot_time_rufus: 10,
+        fuse_burn_interval: 40,  
+        fuse_burn_chance: 50,    
+        start_broken_fuses: 2    
+    },
+	n4: {
+        fuse_spawn_seconds: 20,
         ai_alfredo: 20, 
         ai_matilda: 20, 
         ai_bongo: 20, 
         ai_rufus: 20,
         max_chases: 4,
-        boot_time_alfredo: 80,
-        boot_time_matilda: 40,
-        boot_time_bongo: 30,
-        boot_time_rufus: 0,
+        boot_time_alfredo: 40,
+        boot_time_matilda: 30,
+        boot_time_bongo: 20,
+        boot_time_rufus: 10,
         fuse_burn_interval: 40,  
         fuse_burn_chance: 50,    
         start_broken_fuses: 2    

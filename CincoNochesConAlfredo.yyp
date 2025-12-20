@@ -82,6 +82,7 @@
     {"id":{"name":"sp_bonnie_caminar_izquierda_guitarra","path":"sprites/sp_bonnie_caminar_izquierda_guitarra/sp_bonnie_caminar_izquierda_guitarra.yy",},"order":1,},
     {"id":{"name":"sp_bonnie_caminar_izquierda","path":"sprites/sp_bonnie_caminar_izquierda/sp_bonnie_caminar_izquierda.yy",},"order":1,},
     {"id":{"name":"obj_transicion","path":"objects/obj_transicion/obj_transicion.yy",},"order":2,},
+    {"id":{"name":"snd_6am","path":"sounds/snd_6am/snd_6am.yy",},"order":10,},
     {"id":{"name":"snd_ambience","path":"sounds/snd_ambience/snd_ambience.yy",},"order":6,},
     {"id":{"name":"sp_phantom_caminar_frente","path":"sprites/sp_phantom_caminar_frente/sp_phantom_caminar_frente.yy",},"order":0,},
     {"id":{"name":"sp_fondo_minijuego","path":"sprites/sp_fondo_minijuego/sp_fondo_minijuego.yy",},"order":7,},
