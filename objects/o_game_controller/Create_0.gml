@@ -138,17 +138,17 @@ night_settings = {
     n1: {
         fuse_spawn_seconds: 50, 
         ai_alfredo: 0, 
-        ai_matilda: 10, 
-        ai_bongo: 10, 
-        ai_rufus: 10,
+        ai_matilda: 0, 
+        ai_bongo: 0, 
+        ai_rufus: 20,
         max_chases: 2,
-        boot_time_alfredo: 0,
-        boot_time_matilda: 120,
-        boot_time_bongo: 100, 
-        boot_time_rufus: 0,
+        boot_time_alfredo: 10,
+        boot_time_matilda: 10,
+        boot_time_bongo: 10, 
+        boot_time_rufus: 10,
         fuse_burn_interval: 70,    
         fuse_burn_chance: 40,      
-        start_broken_fuses: 0      
+        start_broken_fuses: 2      
     },
     n2: {
         fuse_spawn_seconds: 50,

@@ -22,7 +22,7 @@ spr_derecha   = sp_freddy_caminar_derecha;
 spr_izquierda = sp_freddy_caminar_izquierda;
 
 // 5. ESTADÍSTICAS Y MECÁNICA "RUSH"
-speed_stalk = 1.5; 
+speed_stalk = 2.5; 
 speed_rush  = 5.0; 
 
 move_speed  = speed_stalk; 
@@ -32,7 +32,7 @@ chase_speed = speed_stalk;
 
 // Intervalo: 30 segundos aprox (1800 frames)
 // Rango entre 25 y 35 segundos para que no sea robótico
-timer_attack_cooldown_max = irandom_range(1500, 2100); 
+timer_attack_cooldown_max = irandom_range(1200, 1800); 
 timer_attack_cooldown     = timer_attack_cooldown_max;
 
 // Duración del Ataque/Sonido: 6 Segundos exactos (360 frames)
@@ -42,7 +42,7 @@ timer_rush_duration       = 0;
 is_rushing = false;
 
 // 6. VISIÓN
-view_dist = 550; 
+view_dist = 650; 
 fov_angle = 90; 
 
 if (variable_instance_exists(id, "grid_ia")) {

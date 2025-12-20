@@ -1,14 +1,20 @@
-/// @description IA Freddy: Intervalos de 30s y Audio Cortado
+/// @description IA Freddy: Intervalos de 30s y Audio Cortado + Seguridad
 
-// 0. SEGURIDAD
+// 0. SEGURIDAD GLOBAL
 if (!global.animatronics_active || my_ai_level == 0) {
-    event_inherited();
+    image_speed = 0;
+    path_end();
     exit;
 }
 
-if (alarm[0] > 0) {
-    event_inherited();
-    exit;
+// 0.1 SEGURIDAD DE BOOT (INICIO) [CORRECCIÓN APLICADA]
+// Freddy espera aquí antes de empezar sus contadores de ataque.
+if (boot_timer_frames > 0) {
+    boot_timer_frames--;
+    image_speed = 0;
+    speed = 0;
+    path_end();
+    exit; // No ejecuta timers ni herencia
 }
 
 // =================================================================
@@ -33,7 +39,6 @@ if (is_rushing) {
         is_rushing = false;
         
         // 1. CORTAR SONIDO DE GOLPE
-        // Esto evita que la risa de 21 segundos siga sonando.
         if (audio_is_playing(snd_freddy_laugh)) {
             audio_stop_sound(snd_freddy_laugh);
         }
@@ -80,6 +85,6 @@ else {
 }
 
 // =================================================================
-// HERENCIA
+// HERENCIA (Movimiento real)
 // =================================================================
 event_inherited();
