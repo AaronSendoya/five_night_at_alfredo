@@ -3,6 +3,9 @@
 global.en_camaras = false;
 camara_actual = 0;
 
+monitor_buffer = 0; 
+monitor_was_open = false; // Para detectar cuándo recién se abrió
+
 // --- 1. LISTA DE CÁMARAS (Para el monitor) ---
 // Estas son las que ves cuando pulsas E
 coords_camaras = [];
@@ -29,7 +32,7 @@ zonas_juego[3] = [0, 5055];    // Cocina
 zonas_juego[4] = [0, 1663];    // Arcade
 zonas_juego[5] = [2975, 3360]; // Almacen
 zonas_juego[6] = [0, 3296];    // Escenario
-zonas_juego[6] = [2979, 5056];    // Escenario atras
+zonas_juego[7] = [2979, 5056];    // Escenario atras
 
 // Tamaño aproximado de tus salas (ancho y alto de la pantalla)
 // Esto sirve para saber si el jugador está dentro.

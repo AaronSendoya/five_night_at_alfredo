@@ -3,10 +3,22 @@
 // Si el jugador está muerto, no hace nada
 if (player_state != PLAYER_STATE_DEAD) {
     
+    // =========================================================
+    // 0. BLOQUEO POR CÁMARAS (SOLUCIÓN DEFINITIVA)
+    // =========================================================
+    // Si el monitor está abierto, el jugador se convierte en una estatua.
+    // Esto evita que al usar A/D para cambiar cámaras, el personaje se mueva.
+    if (global.en_camaras) {
+        image_speed = 0;
+        image_index = 0; // Forzar pose estática
+        // Si usas variables de velocidad personalizadas, ponlas a 0 aquí
+        velocidad_actual = 0; 
+        exit; // <--- IMPORTANTE: Detiene la ejecución del resto del script
+    }
+
     // --------------------------------------------------------
     // BLOQUEO POR RECARGA DE LINTERNA (Crank)
     // --------------------------------------------------------
-    // Si estamos dando cuerda, nos quedamos quietos
     if (instance_exists(obj_linterna)) {
         if (obj_linterna.is_cranking) {
             image_speed = 0; 
@@ -158,7 +170,7 @@ if (player_state != PLAYER_STATE_DEAD) {
                     with (interact_target) instance_destroy();
                     break;
                 
-                // Añade más casos aquí (obj_generador, etc.)
+                // Añade más casos aquí...
             }
         }
 

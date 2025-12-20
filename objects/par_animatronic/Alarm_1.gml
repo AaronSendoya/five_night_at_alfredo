@@ -1,7 +1,4 @@
-/// @description EJECUTAR EL VIAJE 
-
-// NOTA: Aquí pegamos tu lógica, pero cambiamos "other.target_x" 
-// por nuestras variables "warp_target_x", etc.
+/// @description EJECUTAR EL VIAJE (Warp Finish)
 
 // 1. ¿Es un teletransporte en la misma sala?
 if (warp_target_room == room) {
@@ -10,8 +7,7 @@ if (warp_target_room == room) {
     
     state = "IDLE";
     
-    // --- AQUÍ ESTÁ EL CAMBIO QUE PEDISTE (Inmóvil 0.5s) ---
-    // En lugar de alarm[0] = 15, ponemos 30 (0.5 seg)
+    // Pausa breve al aparecer (0.5s)
     alarm[0] = 30; 
     
     // Resetear paciencia
@@ -22,21 +18,23 @@ if (warp_target_room == room) {
 else {
     if (instance_exists(obj_director_ia) && variable_global_exists("ubicaciones")) {
         
-        // --- CORRECCIÓN 3: GUARDAR EN LA NUBE ---
         var _mis_datos = global.ubicaciones[? object_index];
         
+        // Si no existe la estructura, la creamos
         if (is_undefined(_mis_datos)) {
             _mis_datos = {};
             ds_map_add(global.ubicaciones, object_index, _mis_datos);
         }
         
-        // Actualizamos dónde va a aparecer (USANDO LAS VARIABLES GUARDADAS)
+        // Guardamos los datos para que el Director IA nos respawnee allá
         _mis_datos.sala = warp_target_room;
         _mis_datos.pos_x = warp_target_x;
         _mis_datos.pos_y = warp_target_y;
         
+        // Guardar de dónde venimos
         _mis_datos.last_room = room; 
         
+        // Desaparecer de esta sala
         instance_destroy();
     }
 }

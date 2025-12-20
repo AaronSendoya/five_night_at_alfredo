@@ -17,26 +17,41 @@ is_active_by_level = (my_ai_level > 0);
 boot_timer_frames = my_boot_time * 60; 
 
 if (is_active_by_level) {
-    // FÓRMULA DE VELOCIDAD (0-20):
+    // ---------------------------------------------------------
+    // 1. VELOCIDAD
+    // ---------------------------------------------------------
     move_speed = 1.7 + (my_ai_level * 0.15);
     chase_speed = move_speed + 1.5; 
     
-    // TIEMPO DE ESPERA ENTRE PUNTOS (Breve pausa al llegar a un mueble):
-    patrol_wait_min = max(15, 60 - (my_ai_level * 2));
-    patrol_wait_max = max(30, 100 - (my_ai_level * 3));
+    // ---------------------------------------------------------
+    // 2. PAUSA ENTRE PUNTOS (Patrullaje) - MÁS ÁGIL
+    // ---------------------------------------------------------
+    // Reducimos las pausas para que no se queden "congelados" tanto rato
+    // Nivel 0:  Espera entre 0.5s y 1.2s
+    // Nivel 20: Espera entre 0.1s y 0.4s
+    patrol_wait_min = max(5,  30 - my_ai_level); 
+    patrol_wait_max = max(20, 75 - (my_ai_level * 2.5)); 
     
-    // --- CORRECCIÓN 1: AUMENTO DE PACIENCIA ---
-    // Antes 900 (15s). Ahora 2400 (40s) base.
-    // Esto evita que crucen el mapa corriendo apenas entran.
-    room_patience_max = 900 - (my_ai_level * 30); 
+    // ---------------------------------------------------------
+    // 3. PACIENCIA EN LA SALA (DRÁSTICAMENTE REDUCIDA)
+    // ---------------------------------------------------------
+    // Fórmula: Base 360 (6 seg) - (Nivel * 15)
+    
+    // Nivel 0:  360 frames (6.0 segundos) -> Da tiempo a verlos, pero no aburren.
+    // Nivel 10: 210 frames (3.5 segundos).
+    // Nivel 20: 60 frames  (1.0 segundo) -> Entran, chequean y se van.
+    
+    // Usamos 'max' para que nunca sea instantáneo (mínimo 1 segundo)
+    room_patience_max = max(60, 360 - (my_ai_level * 15)); 
+    
     room_patience_timer = room_patience_max; 
 } 
 else {
+    // Valores de inactividad
     move_speed = 0;
     chase_speed = 0;
     patrol_wait_min = 60;
     patrol_wait_max = 60;
-    // Si está inactivo, nunca se aburre
     room_patience_timer = 999999; 
 }
 

@@ -46,6 +46,7 @@
     {"id":{"name":"sp_escenario_principal","path":"sprites/sp_escenario_principal/sp_escenario_principal.yy",},"order":6,},
     {"id":{"name":"obj_linterna","path":"objects/obj_linterna/obj_linterna.yy",},"order":1,},
     {"id":{"name":"obj_ventilation","path":"objects/obj_ventilation/obj_ventilation.yy",},"order":12,},
+    {"id":{"name":"snd_poweroff","path":"sounds/snd_poweroff/snd_poweroff.yy",},"order":9,},
     {"id":{"name":"obj_escondite","path":"objects/obj_escondite/obj_escondite.yy",},"order":13,},
     {"id":{"name":"snd_camera_on","path":"sounds/snd_camera_on/snd_camera_on.yy",},"order":0,},
     {"id":{"name":"obj_item","path":"objects/obj_item/obj_item.yy",},"order":8,},
