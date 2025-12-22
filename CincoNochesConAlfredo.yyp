@@ -63,6 +63,7 @@
     {"id":{"name":"sp_bonnie_caminar_atras","path":"sprites/sp_bonnie_caminar_atras/sp_bonnie_caminar_atras.yy",},"order":3,},
     {"id":{"name":"sp_ventilation","path":"sprites/sp_ventilation/sp_ventilation.yy",},"order":5,},
     {"id":{"name":"draw_stamina_bar","path":"scripts/draw_stamina_bar/draw_stamina_bar.yy",},"order":0,},
+    {"id":{"name":"sp_interruptor_puerta","path":"sprites/sp_interruptor_puerta/sp_interruptor_puerta.yy",},"order":20,},
     {"id":{"name":"obj_jugador","path":"objects/obj_jugador/obj_jugador.yy",},"order":0,},
     {"id":{"name":"obj_arcade_trigger","path":"objects/obj_arcade_trigger/obj_arcade_trigger.yy",},"order":16,},
     {"id":{"name":"fnt_aviso","path":"fonts/fnt_aviso/fnt_aviso.yy",},"order":0,},
